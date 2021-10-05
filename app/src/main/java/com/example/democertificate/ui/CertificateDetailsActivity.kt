@@ -1,8 +1,9 @@
-package com.example.democertificate
+package com.example.democertificate.ui
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.democertificate.R
 import com.example.democertificate.models.CertificateListEachItem
 
 

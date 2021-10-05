@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoCertificate">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CertificateDetailsActivity">
+            android:name=".ui.CertificateDetailsActivity">
         </activity>
     </application>
 

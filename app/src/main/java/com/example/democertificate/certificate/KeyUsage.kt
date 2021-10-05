@@ -1,4 +1,4 @@
-package com.example.democertificate
+package com.example.democertificate.certificate
 
 class KeyUsage {
 

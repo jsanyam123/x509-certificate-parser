@@ -1,4 +1,4 @@
-package com.example.democertificate
+package com.example.democertificate.certificate
 import android.content.Context
 import android.util.Log
 import java.io.InputStream
@@ -8,8 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import java.security.cert.CertificateParsingException
-import com.example.democertificate.ExtendedKeyUsage.*
-import com.example.democertificate.KeyUsage.*
+import com.example.democertificate.R
 import com.example.democertificate.models.CertificateDetailsEachItem
 import com.example.democertificate.models.CertificateList
 import com.example.democertificate.models.CertificateListEachItem
@@ -109,7 +108,7 @@ class HandleCertificates {
         var resultKeyUsage = ""
         for (i in 0..8) {
             if (keyUsageList[i]) {
-                val type: KeyUsageType = getKeyUsage(i)
+                val type: KeyUsage.KeyUsageType = getKeyUsage(i)
                 resultKeyUsage += type.keyName + ", "
             }
         }
@@ -120,12 +119,12 @@ class HandleCertificates {
     }
 
     private fun getExtendedKeyUsage(extendedUsage: MutableList<String>?): String {
-        val extendedKeyUsagesList: MutableList<ExtendedKeyUsageType?> = ArrayList()
+        val extendedKeyUsagesList: MutableList<ExtendedKeyUsage.ExtendedKeyUsageType?> = ArrayList()
         var resultString = ""
         try {
             if (extendedUsage != null) {
                 for (type in extendedUsage) {
-                    val key: ExtendedKeyUsageType? = getExtendedKeyUsageType(type)
+                    val key: ExtendedKeyUsage.ExtendedKeyUsageType? = getExtendedKeyUsageType(type)
                     if (key != null) {
                         extendedKeyUsagesList.add(key)
                         resultString += key.names + ", "

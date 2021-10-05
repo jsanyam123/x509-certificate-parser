@@ -1,10 +1,13 @@
-package com.example.democertificate
+package com.example.democertificate.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.democertificate.certificate.HandleCertificates
+import com.example.democertificate.R
+import com.example.democertificate.adapter.CertificateAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

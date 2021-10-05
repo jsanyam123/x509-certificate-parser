@@ -1,17 +1,15 @@
-package com.example.democertificate
+package com.example.democertificate.adapter
 
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.democertificate.ui.CertificateDetailsActivity
 import com.example.democertificate.databinding.CertificateRowBinding
 import com.example.democertificate.models.CertificateList
 import com.example.democertificate.models.CertificateListEachItem
-import com.google.android.material.internal.ContextUtils.getActivity
 
 
 class CertificateAdapter : RecyclerView.Adapter<CertificateAdapter.MyViewHolder>() {
