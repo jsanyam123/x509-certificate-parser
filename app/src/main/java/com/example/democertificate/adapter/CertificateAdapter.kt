@@ -21,18 +21,16 @@ class CertificateAdapter : RecyclerView.Adapter<CertificateAdapter.MyViewHolder>
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currentCerti: CertificateListEachItem,context: Context){
-            binding.tvAnimalType.text = currentCerti.label
+            binding.Label.text = currentCerti.label
+            binding.expiry.text = currentCerti.certificateDetail.expiry
             binding.executePendingBindings()
-            binding.tvAnimalType.setOnClickListener {
+            binding.certificateRowLayout.setOnClickListener {
                 Log.i("Sanyam",currentCerti.label)
                 val intent = Intent(context, CertificateDetailsActivity::class.java)
                 intent.putExtra("certiDetails", currentCerti)
                 context.startActivity(intent)
             }
         }
-
-
-
 
         companion object {
             fun from(parent: ViewGroup): MyViewHolder {

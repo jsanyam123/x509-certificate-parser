@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CertificateDetailsEachItem(
     @SerializedName("Subjects")
-    val label: String,
+    val subject: String,
     @SerializedName("Issuer")
     val issuer: String,
     @SerializedName("Expiry")

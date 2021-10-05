@@ -11,7 +11,8 @@
         android:theme="@style/Theme.DemoCertificate">
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Certificates" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.CertificateDetailsActivity">
+            android:name=".ui.CertificateDetailsActivity"
+            android:label="About Certificate" >
         </activity>
     </application>
 
