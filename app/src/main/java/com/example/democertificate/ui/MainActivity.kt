@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var certificateList = HandleCertificates().readCert(this)
-        Log.i("Sanyam",certificateList.toString())
         setupRecyclerView(certificateDetails)
         mAdapter.setData(certificateList,this)
     }

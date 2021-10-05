@@ -25,7 +25,6 @@ class CertificateAdapter : RecyclerView.Adapter<CertificateAdapter.MyViewHolder>
             binding.expiry.text = currentCerti.certificateDetail.expiry
             binding.executePendingBindings()
             binding.certificateRowLayout.setOnClickListener {
-                Log.i("Sanyam",currentCerti.label)
                 val intent = Intent(context, CertificateDetailsActivity::class.java)
                 intent.putExtra("certiDetails", currentCerti)
                 context.startActivity(intent)

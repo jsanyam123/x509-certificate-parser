@@ -1,13 +1,11 @@
 package com.example.democertificate.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.democertificate.R
 import com.example.democertificate.models.CertificateListEachItem
 import kotlinx.android.synthetic.main.activity_certificate_details.*
-
 
 class CertificateDetailsActivity : AppCompatActivity() {
 
@@ -20,7 +18,6 @@ class CertificateDetailsActivity : AppCompatActivity() {
         val certiDetails: CertificateListEachItem?
         if (extras != null) {
             certiDetails = extras.get("certiDetails") as CertificateListEachItem
-            Log.i("Sanyam",certiDetails.toString())
             SubjectData.text = certiDetails.certificateDetail.subject
             issuerData.text = certiDetails.certificateDetail.issuer
             expirationData.text = certiDetails.certificateDetail.expiry
@@ -38,6 +35,7 @@ class CertificateDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
