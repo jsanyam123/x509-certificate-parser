@@ -16,11 +16,8 @@ class CertificateDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_certificate_details)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
         val extras = intent.extras
         val certiDetails: CertificateListEachItem?
-
         if (extras != null) {
             certiDetails = extras.get("certiDetails") as CertificateListEachItem
             Log.i("Sanyam",certiDetails.toString())
@@ -28,9 +25,6 @@ class CertificateDetailsActivity : AppCompatActivity() {
             issuerData.text = certiDetails.certificateDetail.issuer
             expirationData.text = certiDetails.certificateDetail.expiry
             keyUsageData.text = certiDetails.certificateDetail.keyUsage
-
-            sanData.text = certiDetails.certificateDetail.san
-
             if(certiDetails.certificateDetail.extendedKeyUsage != "") {
                 ekuData.text = certiDetails.certificateDetail.extendedKeyUsage
                 ekuData.visibility = View.VISIBLE
@@ -42,9 +36,10 @@ class CertificateDetailsActivity : AppCompatActivity() {
                 sanH.visibility = View.VISIBLE
                 sanData.visibility = View.VISIBLE
             }
-
         }
-
-
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

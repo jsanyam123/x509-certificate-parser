@@ -23,42 +23,22 @@ class HandleCertificates {
         var p12KeyStoreInstance : KeyStore
         val fields: Array<Field> = R.raw::class.java.fields
         fields.forEach {field ->
-//            Log.d("Sanchin", String.format(
-//                "name=\"%s\", id=0x%08x",
-//                field.name, field.getInt(field))
-//            )
             p12KeyStoreInstance =  KeyStore.getInstance("pkcs12")
             caInput= context.resources.openRawResource(field.getInt(field))
             p12KeyStoreInstance.load(caInput, "Password1".toCharArray())
-//            Log.i("Sanchinhello","Hello")
             val e: Enumeration<String> = p12KeyStoreInstance.aliases()
             while (e.hasMoreElements()) {
                 val alias: String = e.nextElement()
-//                Log.i("San_alias",alias)
                 val c: X509Certificate = p12KeyStoreInstance.getCertificate(alias) as X509Certificate
-//                Log.i("Sancccp",c.basicConstraints. toString())
-//                Log.i("Sancccp",getCertificateDetails(c).toString())
+                if(c.basicConstraints > -1){
+                    continue
+                }
                 certificateList.add(CertificateListEachItem(alias,getCertificateDetails(c)))
             }
         }
         return certificateList
     }
-
-        fun readCertTwo(context: Context) {
-        val caInput: InputStream = context.resources.openRawResource(R.raw.pivd3_rootca_)
-        val p12 = KeyStore.getInstance("pkcs12")
-        p12.load(caInput,"Password1".toCharArray())
-
-        val e: Enumeration<String> = p12.aliases()
-        while (e.hasMoreElements()) {
-            val alias: String = e.nextElement()
-            Log.i("San_alias",alias)
-            val c: X509Certificate = p12.getCertificate(alias) as X509Certificate
-            Log.i("Sancccphpp",getCertificateDetails(c).toString())
-        }
-    }
-
-
+    
     private fun formatExpiryDate(date: Date): String {
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.US)
         return formatter.format(date)
