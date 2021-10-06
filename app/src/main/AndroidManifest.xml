@@ -22,6 +22,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.CertificateDetailsActivity"
+            android:label="About Certificate">
+        </activity>
+
     </application>
 
 </manifest>

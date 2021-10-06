@@ -1,44 +1,40 @@
 package com.example.democertificate.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
+
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.navArgs
+import com.example.democertificate.R
+import kotlinx.android.synthetic.main.activity_certificate_details.*
 
-import com.example.democertificate.databinding.ActivityCertificateDetailsBinding
-
-class CertificateDetailsActivity : Fragment() {
-
+class CertificateDetailsActivity : AppCompatActivity() {
     private val args by navArgs<CertificateDetailsActivityArgs>()
-    private lateinit var _binding: ActivityCertificateDetailsBinding
-    private val binding get() = _binding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = ActivityCertificateDetailsBinding.inflate(inflater, container, false)
-        val certifiacteDetails = args.result
-
-        binding.SubjectData.text = certifiacteDetails.subject
-        binding.issuerData.text = certifiacteDetails.issuer
-        binding.expirationData.text = certifiacteDetails.expiry
-        binding.keyUsageData.text = certifiacteDetails.keyUsage
-        if(certifiacteDetails.extendedKeyUsage != "") {
-            binding.ekuData.text = certifiacteDetails.extendedKeyUsage
-            binding.ekuData.visibility = View.VISIBLE
-            binding.extendedKeyUsage.visibility = View.VISIBLE
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_certificate_details)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val certificateDetail = args.result
+        SubjectData.text = certificateDetail.subject
+        issuerData.text = certificateDetail.issuer
+        expirationData.text = certificateDetail.expiry
+        keyUsageData.text = certificateDetail.keyUsage
+        if(certificateDetail.extendedKeyUsage != "") {
+            ekuData.text = certificateDetail.extendedKeyUsage
+            ekuData.visibility = View.VISIBLE
+            extendedKeyUsage.visibility = View.VISIBLE
+        }
+        if(certificateDetail.san != "") {
+            sanData.text = certificateDetail.san
+            sanH.visibility = View.VISIBLE
+            sanData.visibility = View.VISIBLE
         }
 
-        if(certifiacteDetails.san != "") {
-            binding.sanData.text = certifiacteDetails.san
-            binding.sanH.visibility = View.VISIBLE
-            binding.sanData.visibility = View.VISIBLE
-        }
-        return binding.root
     }
+    override fun onBackPressed() {
 
-
+        super.onBackPressed()
+        finish()
+    }
 }

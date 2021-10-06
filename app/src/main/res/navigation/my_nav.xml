@@ -10,16 +10,18 @@
         android:id="@+id/CertificateListFragment"
         android:name="com.example.democertificate.ui.CertificateListFragment"
         android:label="MainActivity" >
+
         <action
-            android:id="@+id/action_mainActivity2_to_certificateDetailsActivity2"
-            app:destination="@id/certificateDetailsActivity2" />
+            android:id="@+id/action_CertificateListFragment_to_certificateDetailsActivity"
+            app:destination="@id/certificateDetailsActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/certificateDetailsActivity2"
+    <activity
+        android:id="@+id/certificateDetailsActivity"
         android:name="com.example.democertificate.ui.CertificateDetailsActivity"
         android:label="CertificateDetailsActivity" >
         <argument
             android:name="result"
             app:argType="com.example.democertificate.models.CertificateDetailsEachItem" />
-    </fragment>
+    </activity>
+
 </navigation>

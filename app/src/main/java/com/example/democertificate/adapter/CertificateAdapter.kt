@@ -25,7 +25,7 @@ class CertificateAdapter : RecyclerView.Adapter<CertificateAdapter.MyViewHolder>
             binding.expiry.text = currentCerti.certificateDetail.expiry
             binding.executePendingBindings()
             binding.certificateRowLayout.setOnClickListener {
-                var action = CertificateListFragmentDirections.actionMainActivity2ToCertificateDetailsActivity2(currentCerti.certificateDetail)
+                var action = CertificateListFragmentDirections.actionCertificateListFragmentToCertificateDetailsActivity(currentCerti.certificateDetail)
                 Navigation.findNavController(it).navigate(action)
             }
         }
