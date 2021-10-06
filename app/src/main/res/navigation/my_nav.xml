@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/CertificateListFragment">
+
+
+    <fragment
+        android:id="@+id/CertificateListFragment"
+        android:name="com.example.democertificate.ui.CertificateListFragment"
+        android:label="MainActivity" >
+        <action
+            android:id="@+id/action_mainActivity2_to_certificateDetailsActivity2"
+            app:destination="@id/certificateDetailsActivity2" />
+    </fragment>
+    <fragment
+        android:id="@+id/certificateDetailsActivity2"
+        android:name="com.example.democertificate.ui.CertificateDetailsActivity"
+        android:label="CertificateDetailsActivity" >
+        <argument
+            android:name="result"
+            app:argType="com.example.democertificate.models.CertificateDetailsEachItem" />
+    </fragment>
+</navigation>

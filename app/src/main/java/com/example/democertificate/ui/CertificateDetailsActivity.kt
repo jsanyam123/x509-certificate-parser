@@ -1,43 +1,44 @@
 package com.example.democertificate.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.example.democertificate.R
-import com.example.democertificate.models.CertificateListEachItem
-import kotlinx.android.synthetic.main.activity_certificate_details.*
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 
-class CertificateDetailsActivity : AppCompatActivity() {
+import com.example.democertificate.databinding.ActivityCertificateDetailsBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_certificate_details)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val extras = intent.extras
-        val certiDetails: CertificateListEachItem?
-        if (extras != null) {
-            certiDetails = extras.get("certiDetails") as CertificateListEachItem
-            SubjectData.text = certiDetails.certificateDetail.subject
-            issuerData.text = certiDetails.certificateDetail.issuer
-            expirationData.text = certiDetails.certificateDetail.expiry
-            keyUsageData.text = certiDetails.certificateDetail.keyUsage
-            if(certiDetails.certificateDetail.extendedKeyUsage != "") {
-                ekuData.text = certiDetails.certificateDetail.extendedKeyUsage
-                ekuData.visibility = View.VISIBLE
-                extendedKeyUsage.visibility = View.VISIBLE
-            }
+class CertificateDetailsActivity : Fragment() {
 
-            if(certiDetails.certificateDetail.san != "") {
-                sanData.text = certiDetails.certificateDetail.san
-                sanH.visibility = View.VISIBLE
-                sanData.visibility = View.VISIBLE
-            }
+    private val args by navArgs<CertificateDetailsActivityArgs>()
+    private lateinit var _binding: ActivityCertificateDetailsBinding
+    private val binding get() = _binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = ActivityCertificateDetailsBinding.inflate(inflater, container, false)
+        val certifiacteDetails = args.result
+
+        binding.SubjectData.text = certifiacteDetails.subject
+        binding.issuerData.text = certifiacteDetails.issuer
+        binding.expirationData.text = certifiacteDetails.expiry
+        binding.keyUsageData.text = certifiacteDetails.keyUsage
+        if(certifiacteDetails.extendedKeyUsage != "") {
+            binding.ekuData.text = certifiacteDetails.extendedKeyUsage
+            binding.ekuData.visibility = View.VISIBLE
+            binding.extendedKeyUsage.visibility = View.VISIBLE
         }
+
+        if(certifiacteDetails.san != "") {
+            binding.sanData.text = certifiacteDetails.san
+            binding.sanH.visibility = View.VISIBLE
+            binding.sanData.visibility = View.VISIBLE
+        }
+        return binding.root
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
+
 }

@@ -9,20 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoCertificate">
+
+
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.NavHostActivity"
             android:exported="true"
-            android:label="Certificates" >
+            android:label="Certificates">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.CertificateDetailsActivity"
-            android:label="About Certificate" >
-        </activity>
+
     </application>
 
 </manifest>

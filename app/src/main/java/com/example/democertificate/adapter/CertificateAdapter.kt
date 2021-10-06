@@ -1,15 +1,15 @@
 package com.example.democertificate.adapter
 
+
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.democertificate.ui.CertificateDetailsActivity
 import com.example.democertificate.databinding.CertificateRowBinding
 import com.example.democertificate.models.CertificateList
 import com.example.democertificate.models.CertificateListEachItem
+import com.example.democertificate.ui.CertificateListFragmentDirections
 
 
 class CertificateAdapter : RecyclerView.Adapter<CertificateAdapter.MyViewHolder>() {
@@ -25,9 +25,8 @@ class CertificateAdapter : RecyclerView.Adapter<CertificateAdapter.MyViewHolder>
             binding.expiry.text = currentCerti.certificateDetail.expiry
             binding.executePendingBindings()
             binding.certificateRowLayout.setOnClickListener {
-                val intent = Intent(context, CertificateDetailsActivity::class.java)
-                intent.putExtra("certiDetails", currentCerti)
-                context.startActivity(intent)
+                var action = CertificateListFragmentDirections.actionMainActivity2ToCertificateDetailsActivity2(currentCerti.certificateDetail)
+                Navigation.findNavController(it).navigate(action)
             }
         }
 
