@@ -2,21 +2,15 @@ package com.example.democertificate.certificate
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.security.KeyChain
 import android.security.KeyChainAliasCallback
 import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.democertificate.R
 import java.io.InputStream
 import java.lang.reflect.Field
-import java.net.HttpURLConnection
-import java.net.SocketTimeoutException
-import java.net.URL
 import java.security.Signature
 
 class HandleKeychain : KeyChainAliasCallback{
@@ -60,7 +54,7 @@ class HandleKeychain : KeyChainAliasCallback{
         var alias = alias
         override fun doInBackground(vararg params: Any): Boolean {
             val pk = KeyChain.getPrivateKey(ctx, alias)
-            Log.i("sssspkkkpk", "pkkey: $pk")
+            //Log.i("sssspkkkpk", "pkkey: $pk")
             val chain = KeyChain.getCertificateChain(ctx, alias)
             Log.i("ssss", "chain length: " + chain?.size)
 
@@ -78,11 +72,11 @@ class HandleKeychain : KeyChainAliasCallback{
             val signed = sig.sign()
 
 
-            Log.i("ssspublickey",pubk.toString())
+            //Log.i("ssspublickey",pubk.toString())
             sig.initVerify(pubk)
             sig.update(data)
             val valid = sig.verify(signed)
-            Log.i("ssssvalid", "signature is valid: $valid")
+            //Log.i("ssssvalid", "signature is valid: $valid")
             return valid
         }
 
