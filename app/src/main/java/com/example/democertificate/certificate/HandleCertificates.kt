@@ -30,6 +30,7 @@ class HandleCertificates {
             while (e.hasMoreElements()) {
                 val alias: String = e.nextElement()
                 val c: X509Certificate = p12KeyStoreInstance.getCertificate(alias) as X509Certificate
+                //Log.i("sssssCertificate",c.toString())
                 if(c.basicConstraints > -1){
                     continue
                 }
