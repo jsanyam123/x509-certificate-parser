@@ -1,18 +1,24 @@
 package com.example.democertificate.certificate
 import android.content.Context
+import android.util.Base64.*
 import android.util.Log
-import java.io.InputStream
-import java.security.KeyStore
-import java.security.cert.X509Certificate
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
-import java.security.cert.CertificateParsingException
 import com.example.democertificate.R
 import com.example.democertificate.models.CertificateDetailsEachItem
 import com.example.democertificate.models.CertificateList
 import com.example.democertificate.models.CertificateListEachItem
+import java.io.InputStream
 import java.lang.reflect.Field
+import java.nio.charset.Charset
+import java.security.KeyStore
+import java.security.NoSuchAlgorithmException
+import java.security.PrivateKey
+import java.security.PublicKey
+import java.security.cert.CertificateParsingException
+import java.security.cert.X509Certificate
+import java.text.SimpleDateFormat
+import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.NoSuchPaddingException
 
 
 class HandleCertificates {
@@ -31,6 +37,25 @@ class HandleCertificates {
                 val alias: String = e.nextElement()
                 val c: X509Certificate = p12KeyStoreInstance.getCertificate(alias) as X509Certificate
                 //Log.i("sssssCertificate",c.toString())
+                var privateKey : PrivateKey
+                if(p12KeyStoreInstance.isKeyEntry(alias))
+                {
+                    privateKey = p12KeyStoreInstance.getKey(alias,null) as PrivateKey
+                    Log.i("ssssss",privateKey.algorithm)
+                    Log.i("ssssss",privateKey.toString())
+                    Log.i("ssssss",privateKey.encoded.size.toString())
+
+                    val enc = encrypt("sanyam",c.publicKey)
+
+                    val des = enc?.let { decrypt(it,privateKey) }
+                    if (enc != null) {
+                        Log.i("ssssss",enc)
+                    }
+                    if (des != null) {
+                        Log.i("ssssss",des)
+                    }
+
+                }
                 if(c.basicConstraints > -1){
                     continue
                 }
@@ -38,6 +63,37 @@ class HandleCertificates {
             }
         }
         return certificateList
+    }
+
+
+    fun encrypt(string: String,mPublicKey:PublicKey): String? {
+        var cipher: Cipher? = null
+        try {
+            cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        } catch (e: NoSuchPaddingException) {
+            e.printStackTrace()
+        }
+        cipher!!.init(Cipher.ENCRYPT_MODE, mPublicKey)
+        val stringBytes = string.toByteArray(charset("UTF-8"))
+        val encryptedBytes: ByteArray = cipher.doFinal(stringBytes)
+        return encodeToString(encryptedBytes,DEFAULT)
+    }
+
+    fun decrypt(string: String,mPrivateKey:PrivateKey): String? {
+        var cipher: Cipher? = null
+        try {
+            cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        } catch (e: NoSuchPaddingException) {
+            e.printStackTrace()
+        }
+        cipher!!.init(Cipher.DECRYPT_MODE, mPrivateKey)
+        val stringBytes: ByteArray = decode(string.toByteArray(), DEFAULT)
+        val decryptedBytes: ByteArray = cipher.doFinal(stringBytes)
+        return String(decryptedBytes, Charset.forName("UTF-8"))
     }
     
     private fun formatExpiryDate(date: Date): String {
