@@ -32,13 +32,14 @@ class CertificateListFragment : Fragment() {
         certificateList?.let { context?.let { it1 -> mAdapter.setData(it, it1) } }
 
         binding?.button1?.setOnClickListener{
-            val ans = context?.let { activity?.let { it1 -> HandleKeychain().storeCertificateIntoKeychain(it, it1) } }
+            val ans = context?.let { activity?.let { it1 -> HandleKeychain().readCertificate2(it, it1) } }
             Log.i("ssss",ans.toString())
         }
 
         binding?.button2?.setOnClickListener{
             val ans2 = context?.let { activity?.let { it1 -> HandleKeychain().readCertificate(it, it1) } }
             Log.i("ssss",ans2.toString())
+//            HandleKeychain().fetchDetailsFromAndroidKeyStore()
         }
         return binding?.root
     }

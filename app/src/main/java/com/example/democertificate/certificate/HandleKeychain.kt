@@ -9,9 +9,17 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.democertificate.R
+import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Field
+import java.security.KeyStore
+import java.security.KeyStoreException
+import java.security.NoSuchAlgorithmException
 import java.security.Signature
+import java.security.cert.Certificate
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
+import java.util.*
 
 class HandleKeychain : KeyChainAliasCallback{
 
@@ -35,7 +43,7 @@ class HandleKeychain : KeyChainAliasCallback{
 
     override fun alias(alias: String?) {
         if (alias != null) {
-            Log.i("ssssalias",alias)
+//            Log.i("sanyam11",alias)
             FetchFlag(currentContext,alias).execute()
         }
     }
@@ -47,6 +55,11 @@ class HandleKeychain : KeyChainAliasCallback{
         return "readCertificateSuccessful"
     }
 
+    fun readCertificate2(context: Context, activity: Activity) : String {
+        FetchFlag(context, "PIV-D ").execute()
+        return "readCertificateSuccessful"
+    }
+
 
     class FetchFlag(ctx: Context,alias:String) : AsyncTask<Any, Void, Boolean>()
     {
@@ -54,30 +67,31 @@ class HandleKeychain : KeyChainAliasCallback{
         var alias = alias
         override fun doInBackground(vararg params: Any): Boolean {
             val pk = KeyChain.getPrivateKey(ctx, alias)
-            //Log.i("sssspkkkpk", "pkkey: $pk")
+            Log.i("sanyam11", "Alias: $alias")
+            Log.i("sanyam11", "Private Key: $pk")
             val chain = KeyChain.getCertificateChain(ctx, alias)
-            Log.i("ssss", "chain length: " + chain?.size)
+            Log.i("sanyam11", "Chain length: " + chain?.size)
 
             if (chain != null) {
                 for (cert in chain) {
-                    Log.i("ssssSubject", "Subject DN: " + cert.subjectDN.name)
-                    Log.i("ssssIssueer", "Issuer DN: " + cert.issuerDN.name)
+//                    Log.i("sanyam11", "Subject DN: " + cert.subjectDN.name)
+//                    Log.i("sanyam11", "Issuer DN: " + cert.issuerDN.name)
                 }
             }
-            val pubk = chain?.get(0)?.publicKey
-            val data = "foobar".toByteArray(charset("ASCII"))
-            val sig = Signature.getInstance("SHA1withRSA")
-            sig.initSign(pk)
-            sig.update(data)
-            val signed = sig.sign()
-
-
-            //Log.i("ssspublickey",pubk.toString())
-            sig.initVerify(pubk)
-            sig.update(data)
-            val valid = sig.verify(signed)
-            //Log.i("ssssvalid", "signature is valid: $valid")
-            return valid
+//            val pubk = chain?.get(0)?.publicKey
+//            val data = "foobar".toByteArray(charset("ASCII"))
+//            val sig = Signature.getInstance("SHA1withRSA")
+//            sig.initSign(pk)
+//            sig.update(data)
+//            val signed = sig.sign()
+//
+//
+//            //Log.i("ssspublickey",pubk.toString())
+//            sig.initVerify(pubk)
+//            sig.update(data)
+//            val valid = sig.verify(signed)
+//            //Log.i("ssssvalid", "signature is valid: $valid")
+            return true
         }
 
         override fun onPostExecute(result: Boolean) {
@@ -88,7 +102,4 @@ class HandleKeychain : KeyChainAliasCallback{
                 Toast.makeText(ctx, "$alias failed ", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
 }
